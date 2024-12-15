@@ -163,6 +163,27 @@ bool body_size_test_3()
   return candle.body_size() == 20.0; // |-100 - (-120)| = 20
 }
 
+// Тест 5.1: Свеча закрывается ниже открытия (красная свеча)
+bool is_red_test_1()
+{
+  Candle candle(Price(200), Price(250), Price(150), Price(180)); // close < open
+  return candle.is_red();
+}
+
+// Тест 5.2: Свеча закрывается выше открытия (не красная свеча)
+bool is_red_test_2()
+{
+  Candle candle(Price(100), Price(150), Price(90), Price(120)); // close > open
+  return !candle.is_red();
+}
+
+// Тест 5.3: Свеча закрывается на уровне открытия (не красная свеча)
+bool is_red_test_3()
+{
+  Candle candle(Price(150), Price(200), Price(100), Price(150)); // close == open
+  return !candle.is_red();
+}
+
 void initTests()
 {
   tests.push_back(body_contains_test_1);
@@ -177,6 +198,9 @@ void initTests()
   tests.push_back(body_size_test_1);
   tests.push_back(body_size_test_2);
   tests.push_back(body_size_test_3);
+  tests.push_back(is_red_test_1);
+  tests.push_back(is_red_test_2);
+  tests.push_back(is_red_test_3);
 }
 
 int launchTests()
