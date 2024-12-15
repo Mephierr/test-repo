@@ -142,6 +142,27 @@ bool full_size_test_3()
   return candle.full_size()== 100.0; // -50 -(-150) = 100;
 }
 
+// Тест 4.1: Размер тела свечи с нормальными значениями
+bool body_size_test_1()
+{
+  Candle candle(Price(100), Price(200), Price(150), Price(180));
+  return candle.body_size() == 80.0; // |100 - 180| = 80
+}
+
+// Тест 4.2: Размер тела свечи, когда open и close равны
+bool body_size_test_2()
+{
+  Candle candle(Price(150), Price(200), Price(100), Price(150));
+  return candle.body_size() == 0.0; // |150 - 150| = 0
+}
+
+// Тест 4.3: Размер тела свечи с отрицательными значениями
+bool body_size_test_3()
+{
+  Candle candle(Price(-100), Price(-50), Price(-150), Price(-120));
+  return candle.body_size() == 20.0; // |-100 - (-120)| = 20
+}
+
 void initTests()
 {
   tests.push_back(body_contains_test_1);
@@ -153,6 +174,9 @@ void initTests()
   tests.push_back(full_size_test_1);
   tests.push_back(full_size_test_2);
   tests.push_back(full_size_test_3);
+  tests.push_back(body_size_test_1);
+  tests.push_back(body_size_test_2);
+  tests.push_back(body_size_test_3);
 }
 
 int launchTests()
