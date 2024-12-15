@@ -121,6 +121,26 @@ bool contains_test_3()
   return true;
 }
 
+// Тест 3.1: Полный размер свечи с нормальными значениями
+bool full_size_test_1()
+{
+  Candle candle(Price(100), Price(200), Price(150), Price(180));
+  return candle.full_size()== 50.0; // 200 - 150 = 50
+}
+
+// Тест 3.2: Полный размер свечи, когда low и high равны
+bool full_size_test_2()
+{
+  Candle candle(Price(100), Price(150), Price(150), Price(150));
+  return candle.full_size()== 0.0; // 150-150 =0
+}
+
+// Тест 3.3: Полный размер свечи с отрицательными значениями
+bool full_size_test_3()
+{
+  Candle candle(Price(-100), Price(-50), Price(-150), Price(-120));
+  return candle.full_size()== 100.0; // -50 -(-150) = 100;
+}
 
 void initTests()
 {
@@ -130,6 +150,9 @@ void initTests()
   tests.push_back(contains_test_1);
   tests.push_back(contains_test_2);
   tests.push_back(contains_test_3);
+  tests.push_back(full_size_test_1);
+  tests.push_back(full_size_test_2);
+  tests.push_back(full_size_test_3);
 }
 
 int launchTests()
