@@ -3,37 +3,88 @@
 #include <iostream>
 #include "candle.h"
 
+
 //массив всех тестов, который мы заполняем в функции initTests
 static std::vector<std::function<bool()>> tests;
 
-//тест 1
-bool test1()
+//Тест 1.1: Проверка зеленой свечи
+bool body_contains_test_1()
 {
-  //пример какого-то теста
-  return 42 == (41 + 1); //passed
+  Candle candle(Price(10.0), Price(12.0), Price(9.0), Price(11.0));
+  if (candle.body_contains(Price(10.0)) == false) // на границе (открытие)
+  {
+    return false;
+  }
+  else if (candle.body_contains(Price(11.0)) == false) // на границе (закрытие)
+  {
+    return false;
+  }
+  else if (candle.body_contains(Price(10.5)) == false) // внутри тела
+  {
+    return false;
+  }
+  else if (candle.body_contains(Price(9.0)) == true) // ниже тела
+  {
+    return false;
+  }
+  else if (candle.body_contains(Price(12.0)) == true) // выше тела
+  {
+    return false;
+  }
+  return true;
 }
 
-//тест 2
-bool test2()
+//Тест 1.2: Проверка красной свечи
+bool body_contains_test_2()
 {
-  //пример какого-то теста
-  return 42 != (41 + 1); //failed
+  Candle candle(Price(11.0), Price(12.0), Price(10.0), Price(9.0));
+  if (candle.body_contains(Price(10.0)) == false) // на границе (низ)
+  {
+    return false;
+  }
+  else if (candle.body_contains(Price(9.0)) == false) // на границе (верх)
+  {
+    return false;
+  }
+  else if (candle.body_contains(Price(10.5)) == false) // внутри тела
+  {
+    return false;
+  }
+  else if (candle.body_contains(Price(12.0)) == true) // выше тела
+  {
+    return false;
+  }
+  else if (candle.body_contains(Price(8.0)) == true) // ниже тела
+  {
+    return false;
+  }
+  return true;
 }
 
-//тест 3
-bool test3()
+//Тест 3: Проверка свечи с одинаковыми значениями открытия и закрытия
+bool body_contains_test_3()
 {
-  Candle candle{ 0.0, 3.0, 3.0, 3.0 };
-
-  //пример какого-то теста
-  return candle.high == 3.0;
+  Candle candle(Price(10.0), Price(10.0), Price(10.0), Price(10.0));
+  if (candle.body_contains(Price(10.0)) == false) // на границе (открытие и закрытие)
+  {
+    return false;
+  }
+  else if (candle.body_contains(Price(9.5)) == true) // ниже тела
+  {
+    return false;
+  }
+  else if (candle.body_contains(Price(10.5)) == true) // выше тела
+  {
+    return false;
+  }
+  return true;
 }
 
 void initTests()
 {
-  tests.push_back(test1);
-  tests.push_back(test2);
-  tests.push_back(test3);
+  tests.push_back(body_contains_test_1);
+  tests.push_back(body_contains_test_2);
+  tests.push_back(body_contains_test_3);
   //tests.push_back(test4);
   //tests.push_back(test5);
 }
