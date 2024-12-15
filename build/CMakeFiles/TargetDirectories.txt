@@ -1,0 +1,3 @@
+/home/mephi/Work/test-repo/build/CMakeFiles/testproj.dir
+/home/mephi/Work/test-repo/build/CMakeFiles/edit_cache.dir
+/home/mephi/Work/test-repo/build/CMakeFiles/rebuild_cache.dir
