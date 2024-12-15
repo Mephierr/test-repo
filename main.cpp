@@ -184,6 +184,27 @@ bool is_red_test_3()
   return !candle.is_red();
 }
 
+// Тест 6.1: Свеча закрывается выше открытия (зеленая свеча)
+bool is_green_test_1()
+{
+  Candle candle(Price(100), Price(150), Price(90), Price(120)); // close > open
+  return candle.is_green();
+}
+
+// Тест 6.2: Свеча закрывается ниже открытия (не зеленая свеча)
+bool is_green_test_2()
+{
+  Candle candle(Price(200), Price(250), Price(150), Price(180)); // close < open
+  return !candle.is_green();
+}
+
+// Тест 6.3: Свеча закрывается на уровне открытия (не зеленая свеча)
+bool is_green_test_3()
+{
+  Candle candle(Price(150), Price(200), Price(100), Price(150)); // close == open
+  return !candle.is_green();
+}
+
 void initTests()
 {
   tests.push_back(body_contains_test_1);
@@ -201,6 +222,9 @@ void initTests()
   tests.push_back(is_red_test_1);
   tests.push_back(is_red_test_2);
   tests.push_back(is_red_test_3);
+  tests.push_back(is_green_test_1);
+  tests.push_back(is_green_test_2);
+  tests.push_back(is_green_test_3);
 }
 
 int launchTests()
