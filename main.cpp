@@ -61,7 +61,7 @@ bool body_contains_test_2()
   return true;
 }
 
-//Тест 3: Проверка свечи с одинаковыми значениями открытия и закрытия
+//Тест 1.3: Проверка свечи с одинаковыми значениями открытия и закрытия
 bool body_contains_test_3()
 {
   Candle candle(Price(10.0), Price(10.0), Price(10.0), Price(10.0));
@@ -80,13 +80,56 @@ bool body_contains_test_3()
   return true;
 }
 
+//Тест 2.1: Цена находится в пределах свечи
+bool contains_test_1()
+{
+  Candle candle(Price(100), Price(200), Price(150), Price(180));
+  if (candle.contains(Price(150)) == false) // на границе
+  {
+    return false;
+  }
+  else if (candle.contains(Price(180)) == false) // на границе
+  {
+    return false;
+  }
+  else if (candle.contains(Price(170)) == false) // внутри
+  {
+    return false;
+  }
+  return true;
+}
+
+// Тест 2.2: Цена ниже нижней границы свечи
+bool contains_test_2()
+{
+  Candle candle(Price(100), Price(200), Price(150), Price(180));
+  if (candle.contains(Price(140)) == true) // ниже нижней границы
+  {
+    return false;
+  }
+  return true;
+}
+
+// Тест 2.3: Цена выше верхней границы свечи
+bool contains_test_3()
+{
+  Candle candle(Price(100), Price(200), Price(150), Price(180));
+  if (candle.contains(Price(210)) == true) // Выше верхней границы
+  {
+    return false;
+  }
+  return true;
+}
+
+
 void initTests()
 {
   tests.push_back(body_contains_test_1);
   tests.push_back(body_contains_test_2);
   tests.push_back(body_contains_test_3);
-  //tests.push_back(test4);
-  //tests.push_back(test5);
+  tests.push_back(contains_test_1);
+  tests.push_back(contains_test_2);
+  tests.push_back(contains_test_3);
 }
 
 int launchTests()
